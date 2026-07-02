@@ -32,6 +32,7 @@ graph TB
             DW[Data Warehouses<br/>Snowflake<br/>BigQuery]
             DL[Data Lakes<br/>S3<br/>Azure Data Lake]
             DB[Databases<br/>PostgreSQL<br/>MongoDB<br/>Redis]
+            ES[Search & Analytics<br/>Elasticsearch]
             VDB[Vector Databases<br/>Pinecone<br/>Weaviate<br/>ChromaDB<br/>Qdrant<br/>Milvus]
         end
         
@@ -52,6 +53,7 @@ graph TB
             EDA[Exploratory Data Analysis]
             FE[Feature Engineering]
             Model[Model Development<br/>& Training]
+            LLM[Large Language Models<br/>Claude<br/>GPT<br/>Llama<br/>Nova]
             Eval[Model Evaluation<br/>& Optimization]
             Embeddings[Embedding Generation<br/>Text/Image/Audio<br/>to Vectors]
         end
@@ -124,23 +126,31 @@ graph TB
     Quality --> DW
     Quality --> DL
     Quality --> DB
+    Quality --> ES
     Quality --> VDB
     
     DW --> EDA
     DL --> EDA
     DB --> EDA
+    ES --> EDA
     
     EDA --> FE
     FE --> Model
+    Model --> LLM
     Model --> Eval
+    LLM --> Eval
+    LLM --> Embeddings
     Model --> Embeddings
     Embeddings --> VDB
     Eval --> MLFlow
     
     MLFlow --> API
     Model --> API
+    LLM --> API
     VDB --> RAG
+    ES --> RAG
     API --> RAG
+    LLM --> RAG
     RAG --> Microservices
     API --> Microservices
     Microservices --> Gateway
@@ -169,8 +179,8 @@ graph TB
     classDef endUser fill:#fce4ec
     
     class DS1,DS2,DS3,DS4,DS5 dataSource
-    class DE_Lang,DE_Tools,ETL,Stream,Quality,DW,DL,DB,VDB,Airflow_Orch,Databricks_DE dataEngineer
-    class DS_Lang,DS_Libs,EDA,FE,Model,Eval,Embeddings,Jupyter,MLFlow,Databricks_DS,Experiments,Viz,BI,Reports dataScientist
+    class DE_Lang,DE_Tools,ETL,Stream,Quality,DW,DL,DB,ES,VDB,Airflow_Orch,Databricks_DE dataEngineer
+    class DS_Lang,DS_Libs,EDA,FE,Model,LLM,Eval,Embeddings,Jupyter,MLFlow,Databricks_DS,Experiments,Viz,BI,Reports dataScientist
     class AD_Lang,AD_Frame,API,Microservices,Gateway,RAG,Container,Orchestrate,Cloud,CDN,WebApp,Mobile,Embedded,RealTime,Monitor,Logs,Security appDeveloper
     class Business,Consumers,Internal endUser
 ```
@@ -184,7 +194,7 @@ graph TB
   - **Stream Processing**: Apache Kafka, Apache Storm
   - **Batch Processing**: Apache Spark, Hadoop MapReduce
   - **Orchestration**: Apache Airflow, Prefect
-  - **Storage**: Snowflake, BigQuery, PostgreSQL, MongoDB, Redis
+    - **Storage**: Snowflake, BigQuery, PostgreSQL, MongoDB, Redis, Elasticsearch
   - **Cloud Platforms**: AWS (EMR, Glue), Azure (Synapse), GCP (Dataflow)
 
 ### Data Scientists
@@ -193,6 +203,7 @@ graph TB
 - **Key Libraries**: 
   - **Data Manipulation**: Pandas, NumPy, Dplyr (R)
   - **ML Frameworks**: Scikit-learn, TensorFlow, PyTorch, XGBoost
+  - **LLMs & Foundation Models**: Claude, GPT, Llama, Amazon Nova
   - **Visualization**: Matplotlib, Seaborn, Plotly, ggplot2 (R)
   - **Experiment Tracking**: MLflow, Weights & Biases, Neptune
 
@@ -202,6 +213,7 @@ graph TB
 - **Key Frameworks**: 
   - **Frontend**: React, Angular, Vue.js
   - **Backend**: Spring Boot, .NET Core, Flask, FastAPI, Express.js
+  - **AI Integration**: LLM APIs, RAG pipelines, prompt orchestration
   - **Mobile**: React Native, Flutter, Swift, Kotlin
   - **Deployment**: Docker, Kubernetes, Terraform
 
